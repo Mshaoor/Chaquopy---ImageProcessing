@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.chaquo.python'
+android {
+    compileSdkVersion 28
+    flavorDimensions "abi"
+    productFlavors {
+        arm {
+            dimension "abi"
+            ndk { abiFilters "armeabi-v7a" }
+        }
+        x86 {
+            dimension "abi"
+            ndk { abiFilters "x86" }
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.myproject.imageprocessing"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+
+
+        python {
+            pip {
+                install "numpy"
+                //            install "D:/mcs/newapp/app/src/main/python/chaquopy_libjpeg-1.5.3-1-py3-none-android_21_arm64_v8a.whl"
+                install "opencv-python"
+                install "dlib"
+                install "face-recognition"
+                //install "imutils"
+            }
+        }
+        python {
+            buildPython "C:/Users/Hello Everyone/AppData/Local/Programs/Python/Python38-32/python.exe"
+            buildPython "py -3.8"
+        }
+
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
